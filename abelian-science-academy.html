@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abelian Science Academy — Islamabad</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0B1F4B;
+    --teal: #00C9B1;
+    --teal-dark: #009E8C;
+    --gold: #E8A800;
+    --gold-dark: #C48F00;
+    --white: #F8FAFF;
+    --charcoal: #2D2D2D;
+    --muted: #6B7280;
+    --border: #E2E8F0;
+    --card-bg: #FFFFFF;
+    --section-alt: #F0F4FF;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; color: var(--charcoal); background: var(--white); }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--navy); padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px; box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .nav-logo-icon {
+    width: 42px; height: 42px; background: var(--teal); border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace; font-weight: 500; color: #fff; font-size: 18px;
+  }
+  .nav-logo-text { color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; line-height: 1.2; }
+  .nav-logo-text span { display: block; font-family: 'Inter', sans-serif; font-size: 10px; color: var(--teal); font-weight: 500; letter-spacing: 2px; text-transform: uppercase; }
+  .nav-links { display: flex; align-items: center; gap: 0.25rem; }
+  .nav-links a {
+    color: rgba(255,255,255,0.8); text-decoration: none; padding: 8px 14px;
+    border-radius: 6px; font-size: 14px; font-weight: 500; transition: all 0.2s;
+  }
+  .nav-links a:hover, .nav-links a.active { background: rgba(255,255,255,0.1); color: #fff; }
+  .nav-cta {
+    background: var(--gold); color: var(--navy) !important; border-radius: 8px !important;
+    font-weight: 600 !important; padding: 10px 18px !important;
+  }
+  .nav-cta:hover { background: var(--gold-dark) !important; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: #fff; border-radius: 2px; transition: 0.3s; }
+  .mobile-menu {
+    display: none; position: fixed; top: 68px; left: 0; right: 0; bottom: 0;
+    background: var(--navy); flex-direction: column; align-items: center; justify-content: center;
+    gap: 1.5rem; z-index: 99;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { color: #fff; font-size: 1.3rem; text-decoration: none; font-weight: 500; }
+  .mobile-menu .m-cta { background: var(--gold); color: var(--navy) !important; padding: 12px 32px; border-radius: 8px; font-weight: 600 !important; }
+
+  /* PAGES */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* HERO */
+  .hero {
+    background: var(--navy); min-height: 92vh;
+    display: flex; align-items: center; position: relative; overflow: hidden;
+  }
+  .hero-canvas { position: absolute; inset: 0; opacity: 0.15; }
+  .hero-inner { position: relative; z-index: 2; max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,201,177,0.15); border: 1px solid rgba(0,201,177,0.4);
+    color: var(--teal); padding: 6px 16px; border-radius: 100px; font-size: 13px; font-weight: 500;
+    margin-bottom: 1.5rem;
+  }
+  .hero-badge::before { content: '★'; }
+  .hero h1 {
+    font-family: 'Playfair Display', serif; font-size: clamp(2.4rem, 5vw, 4rem);
+    color: #fff; line-height: 1.15; max-width: 700px; margin-bottom: 1.5rem;
+  }
+  .hero h1 em { color: var(--teal); font-style: normal; }
+  .hero p { color: rgba(255,255,255,0.75); font-size: 1.15rem; max-width: 560px; margin-bottom: 2.5rem; line-height: 1.8; }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--gold); color: var(--navy); padding: 14px 32px;
+    border-radius: 10px; font-weight: 700; font-size: 1rem; text-decoration: none;
+    transition: all 0.2s; display: inline-block; border: none; cursor: pointer;
+  }
+  .btn-primary:hover { background: var(--gold-dark); transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent; color: #fff; padding: 14px 32px;
+    border-radius: 10px; font-weight: 600; font-size: 1rem; text-decoration: none;
+    transition: all 0.2s; display: inline-block;
+    border: 1.5px solid rgba(255,255,255,0.4);
+  }
+  .btn-outline:hover { border-color: #fff; background: rgba(255,255,255,0.05); }
+  .hero-stats {
+    display: flex; gap: 3rem; margin-top: 4rem; flex-wrap: wrap;
+    padding-top: 2.5rem; border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .hero-stat-num { font-family: 'JetBrains Mono', monospace; font-size: 2.2rem; font-weight: 500; color: var(--teal); }
+  .hero-stat-label { color: rgba(255,255,255,0.6); font-size: 13px; margin-top: 2px; }
+
+  /* SECTIONS */
+  section { padding: 5rem 2rem; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-tag { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; color: var(--teal); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.75rem; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.6rem); color: var(--navy); line-height: 1.25; margin-bottom: 1rem; }
+  .section-sub { color: var(--muted); font-size: 1rem; max-width: 560px; line-height: 1.8; margin-bottom: 3rem; }
+
+  /* ABOUT PAGE */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-bottom: 5rem; }
+  .about-visual {
+    background: var(--navy); border-radius: 20px; padding: 3rem 2rem;
+    display: flex; flex-direction: column; gap: 1.5rem;
+  }
+  .math-formula {
+    font-family: 'JetBrains Mono', monospace; color: var(--teal);
+    font-size: clamp(1rem, 1.5vw, 1.3rem); opacity: 0.8;
+  }
+  .why-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+  .why-card {
+    background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .why-card:hover { box-shadow: 0 8px 30px rgba(11,31,75,0.1); transform: translateY(-3px); }
+  .why-icon {
+    width: 48px; height: 48px; border-radius: 12px; background: #E6F0FF;
+    display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 1rem;
+  }
+  .why-card h3 { font-size: 1rem; font-weight: 600; color: var(--navy); margin-bottom: 0.4rem; }
+  .why-card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+  /* COURSES PAGE */
+  .courses-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+  .course-card {
+    background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px;
+    overflow: hidden; transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .course-card:hover { box-shadow: 0 12px 40px rgba(11,31,75,0.12); transform: translateY(-4px); }
+  .course-header { padding: 2rem 1.75rem 1.25rem; }
+  .course-icon-wrap { font-size: 2.5rem; margin-bottom: 1rem; }
+  .course-card h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--navy); margin-bottom: 0.5rem; }
+  .course-card .tagline { font-size: 14px; color: var(--muted); margin-bottom: 1.25rem; line-height: 1.6; }
+  .level-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1.25rem; }
+  .level-tag {
+    background: #EFF6FF; color: var(--navy); padding: 4px 12px;
+    border-radius: 100px; font-size: 12px; font-weight: 500;
+  }
+  .course-details { border-top: 1px solid var(--border); padding: 1.25rem 1.75rem; background: var(--section-alt); }
+  .course-detail-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; font-size: 14px; }
+  .course-detail-row .label { color: var(--muted); }
+  .course-detail-row .value { font-weight: 600; color: var(--navy); }
+  .course-enroll {
+    display: block; margin: 1.25rem 1.75rem 1.5rem;
+    background: var(--navy); color: #fff; padding: 12px;
+    border-radius: 10px; text-align: center; font-weight: 600; font-size: 14px;
+    text-decoration: none; transition: background 0.2s;
+  }
+  .course-enroll:hover { background: #162D6B; }
+
+  /* FACULTY */
+  .faculty-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 5rem; }
+  .faculty-card {
+    background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px;
+    padding: 2rem 1.5rem; text-align: center; transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .faculty-card:hover { box-shadow: 0 8px 30px rgba(11,31,75,0.1); transform: translateY(-3px); }
+  .faculty-avatar {
+    width: 80px; height: 80px; border-radius: 50%; background: var(--navy);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--teal);
+    margin: 0 auto 1.25rem;
+  }
+  .faculty-card h3 { font-size: 1.1rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+  .faculty-subject { font-size: 13px; color: var(--teal); font-weight: 600; margin-bottom: 8px; letter-spacing: 1px; text-transform: uppercase; }
+  .faculty-qual { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .testimonial-section { background: var(--navy); border-radius: 20px; padding: 3.5rem; }
+  .testimonial-title { font-family: 'Playfair Display', serif; color: #fff; font-size: 1.6rem; margin-bottom: 2rem; }
+  .testimonial-card {
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 14px; padding: 1.75rem;
+  }
+  .stars { color: var(--gold); font-size: 1.2rem; margin-bottom: 1rem; }
+  .testimonial-text { color: rgba(255,255,255,0.85); line-height: 1.8; margin-bottom: 1.25rem; font-size: 1rem; }
+  .testimonial-author { display: flex; align-items: center; gap: 12px; }
+  .t-avatar {
+    width: 44px; height: 44px; border-radius: 50%; background: var(--teal);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; color: var(--navy); font-size: 16px;
+  }
+  .t-name { color: #fff; font-weight: 600; font-size: 15px; }
+  .t-role { color: rgba(255,255,255,0.5); font-size: 13px; }
+
+  /* CONTACT PAGE */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 3rem; align-items: start; }
+  .contact-info-card {
+    background: var(--navy); border-radius: 20px; padding: 2.5rem;
+    color: #fff; position: sticky; top: 90px;
+  }
+  .contact-info-card h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 0.5rem; }
+  .contact-info-card p { color: rgba(255,255,255,0.65); font-size: 14px; margin-bottom: 2rem; line-height: 1.7; }
+  .contact-item { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 1.5rem; }
+  .contact-icon {
+    width: 42px; height: 42px; border-radius: 10px; background: rgba(0,201,177,0.15);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px;
+  }
+  .contact-item-label { color: rgba(255,255,255,0.5); font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 2px; }
+  .contact-item-value { color: #fff; font-size: 14px; font-weight: 500; line-height: 1.5; }
+  .whatsapp-btn {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    background: #25D366; color: #fff; border: none; border-radius: 10px;
+    padding: 14px; font-size: 15px; font-weight: 600; cursor: pointer;
+    width: 100%; margin-top: 2rem; text-decoration: none; transition: background 0.2s;
+  }
+  .whatsapp-btn:hover { background: #1DA855; }
+  .form-card {
+    background: var(--card-bg); border: 1px solid var(--border); border-radius: 20px; padding: 2.5rem;
+  }
+  .form-card h2 { font-family: 'Playfair Display', serif; color: var(--navy); font-size: 1.6rem; margin-bottom: 0.5rem; }
+  .form-card p { color: var(--muted); font-size: 14px; margin-bottom: 2rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { margin-bottom: 1.25rem; }
+  .form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 12px 14px; border: 1.5px solid var(--border);
+    border-radius: 10px; font-size: 14px; font-family: 'Inter', sans-serif;
+    color: var(--charcoal); background: var(--white);
+    transition: border-color 0.2s; outline: none;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--teal); }
+  .form-group textarea { height: 110px; resize: vertical; }
+  .form-submit {
+    background: var(--navy); color: #fff; border: none; border-radius: 10px;
+    padding: 14px 36px; font-size: 15px; font-weight: 700; cursor: pointer;
+    width: 100%; transition: background 0.2s; font-family: 'Inter', sans-serif;
+  }
+  .form-submit:hover { background: #162D6B; }
+  .form-success {
+    display: none; background: #E6FAF5; border: 1px solid #00C9B1;
+    color: #005A50; padding: 1rem 1.25rem; border-radius: 10px; margin-top: 1rem;
+    font-weight: 500; font-size: 14px;
+  }
+  .map-embed { margin-top: 3rem; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); }
+  .map-embed iframe { width: 100%; height: 300px; border: none; display: block; }
+
+  /* HOME FEATURES */
+  .features-strip { background: var(--section-alt); }
+  .features-strip .section-inner { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; }
+  .feature-item { text-align: center; padding: 1.5rem 1rem; }
+  .feature-num { font-family: 'Playfair Display', serif; font-size: 2.8rem; color: var(--navy); font-weight: 900; }
+  .feature-label { color: var(--muted); font-size: 14px; margin-top: 4px; }
+  .home-courses-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .home-course-card {
+    background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px;
+    padding: 2rem 1.5rem; transition: box-shadow 0.2s, transform 0.2s;
+    cursor: pointer;
+  }
+  .home-course-card:hover { box-shadow: 0 10px 35px rgba(11,31,75,0.1); transform: translateY(-3px); }
+  .home-course-card .emoji { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
+  .home-course-card h3 { font-family: 'Playfair Display', serif; color: var(--navy); font-size: 1.25rem; margin-bottom: 0.5rem; }
+  .home-course-card p { color: var(--muted); font-size: 14px; line-height: 1.7; }
+  .home-cta-section {
+    background: var(--navy); border-radius: 20px; padding: 4rem;
+    text-align: center; margin: 5rem 0 0;
+  }
+  .home-cta-section h2 { font-family: 'Playfair Display', serif; color: #fff; font-size: 2rem; margin-bottom: 1rem; }
+  .home-cta-section p { color: rgba(255,255,255,0.65); max-width: 480px; margin: 0 auto 2rem; }
+
+  /* FOOTER */
+  footer { background: #070F26; color: rgba(255,255,255,0.6); padding: 3rem 2rem 2rem; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; }
+  .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+  .footer-brand h3 { font-family: 'Playfair Display', serif; color: #fff; font-size: 1.3rem; margin-bottom: 0.75rem; }
+  .footer-brand p { font-size: 14px; line-height: 1.8; max-width: 280px; }
+  .footer-col h4 { color: #fff; font-size: 14px; font-weight: 600; margin-bottom: 1rem; letter-spacing: 1px; text-transform: uppercase; }
+  .footer-col a { display: block; font-size: 14px; color: rgba(255,255,255,0.55); text-decoration: none; margin-bottom: 8px; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--teal); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; font-size: 13px; flex-wrap: gap; gap: 1rem; }
+
+  /* FLOATING WA */
+  .wa-float {
+    position: fixed; bottom: 24px; right: 24px; z-index: 1000;
+    width: 56px; height: 56px; background: #25D366; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px; box-shadow: 0 4px 20px rgba(37,211,102,0.5);
+    text-decoration: none; transition: transform 0.2s;
+  }
+  .wa-float:hover { transform: scale(1.1); }
+  .back-top {
+    position: fixed; bottom: 92px; right: 24px; z-index: 1000;
+    width: 44px; height: 44px; background: var(--navy); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 50%; display: none; align-items: center; justify-content: center;
+    cursor: pointer; color: #fff; font-size: 20px; transition: background 0.2s;
+  }
+  .back-top.show { display: flex; }
+  .back-top:hover { background: #162D6B; }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .about-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr; }
+    .home-courses-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .hero-stats { gap: 2rem; }
+    section { padding: 3.5rem 1.25rem; }
+    .home-cta-section { padding: 2.5rem 1.5rem; }
+    .testimonial-section { padding: 2rem 1.5rem; }
+    .contact-info-card { position: static; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo" onclick="showPage('home'); return false;">
+    <div class="nav-logo-icon">∑</div>
+    <div class="nav-logo-text">Abelian Science Academy<span>Islamabad, Pakistan</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="#" onclick="showPage('home'); return false;" class="active" id="nav-home">Home</a>
+    <a href="#" onclick="showPage('about'); return false;" id="nav-about">About</a>
+    <a href="#" onclick="showPage('courses'); return false;" id="nav-courses">Courses</a>
+    <a href="#" onclick="showPage('faculty'); return false;" id="nav-faculty">Faculty & Results</a>
+    <a href="#" onclick="showPage('contact'); return false;" id="nav-contact">Contact</a>
+    <a href="#" onclick="showPage('contact'); return false;" class="nav-cta">Enroll Now</a>
+  </div>
+  <div class="hamburger" onclick="toggleMenu()" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#" onclick="showPage('home'); closeMobileMenu(); return false;">Home</a>
+  <a href="#" onclick="showPage('about'); closeMobileMenu(); return false;">About</a>
+  <a href="#" onclick="showPage('courses'); closeMobileMenu(); return false;">Courses</a>
+  <a href="#" onclick="showPage('faculty'); closeMobileMenu(); return false;">Faculty & Results</a>
+  <a href="#" onclick="showPage('contact'); closeMobileMenu(); return false;">Contact</a>
+  <a href="#" onclick="showPage('contact'); closeMobileMenu(); return false;" class="m-cta">Enroll Now</a>
+</div>
+
+<!-- ======================== HOME PAGE ======================== -->
+<div class="page active" id="page-home">
+
+  <!-- HERO -->
+  <div class="hero">
+    <canvas class="hero-canvas" id="heroCanvas"></canvas>
+    <div class="hero-inner">
+      <div class="hero-badge">5.0 ★ Rated Academy in H-13, Islamabad</div>
+      <h1>Where Students Discover the <em>Language of Science</em></h1>
+      <p>Expert coaching in Mathematics and Physics for Matric, FSc, and O/A Level students. Small batches, dedicated teachers, extraordinary results.</p>
+      <div class="hero-btns">
+        <a href="#" class="btn-primary" onclick="showPage('courses'); return false;">Explore Courses</a>
+        <a href="tel:+923440243882" class="btn-outline">📞 Call Now</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="hero-stat-num">200+</div><div class="hero-stat-label">Students Taught</div></div>
+        <div><div class="hero-stat-num">5★</div><div class="hero-stat-label">Google Rating</div></div>
+        <div><div class="hero-stat-num">3+</div><div class="hero-stat-label">Years of Excellence</div></div>
+        <div><div class="hero-stat-num">95%</div><div class="hero-stat-label">Success Rate</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURES STRIP -->
+  <section class="features-strip" style="padding: 3rem 2rem;">
+    <div class="section-inner">
+      <div class="feature-item">
+        <div class="feature-num">📐</div>
+        <div class="feature-label">Mathematics Excellence</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">⚛️</div>
+        <div class="feature-label">Physics Mastery</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">🎯</div>
+        <div class="feature-label">ECAT / MDCAT Prep</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">👥</div>
+        <div class="feature-label">Small Batch Sizes</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOME COURSES OVERVIEW -->
+  <section>
+    <div class="section-inner">
+      <div class="section-tag">Our Programs</div>
+      <h2 class="section-title">Courses We Offer</h2>
+      <p class="section-sub">From foundational concepts to advanced university entrance preparation — we've got every stage covered.</p>
+      <div class="home-courses-grid">
+        <div class="home-course-card" onclick="showPage('courses')">
+          <span class="emoji">📐</span>
+          <h3>Mathematics</h3>
+          <p>Algebra, Calculus, Trigonometry and more — from Matric to FSc Level, taught with clarity and precision.</p>
+        </div>
+        <div class="home-course-card" onclick="showPage('courses')">
+          <span class="emoji">⚛️</span>
+          <h3>Physics</h3>
+          <p>Mechanics, Optics, Electromagnetism — complex concepts made simple through our expert faculty.</p>
+        </div>
+        <div class="home-course-card" onclick="showPage('courses')">
+          <span class="emoji">🎯</span>
+          <h3>Entry Test Prep</h3>
+          <p>Targeted ECAT, MDCAT, and NET preparation with past papers, timed mocks, and personalized feedback.</p>
+        </div>
+      </div>
+
+      <div class="home-cta-section">
+        <h2>Ready to Excel in Science?</h2>
+        <p>Join Abelian Science Academy and experience teaching that makes even the hardest topics easy to understand.</p>
+        <a href="#" class="btn-primary" onclick="showPage('contact'); return false;">Enroll Today →</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ======================== ABOUT PAGE ======================== -->
+<div class="page" id="page-about">
+  <section style="padding-top: 4rem;">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div>
+          <div class="section-tag">About Us</div>
+          <h2 class="section-title">Building Tomorrow's Scientists & Engineers</h2>
+          <p style="color: var(--muted); line-height: 1.9; margin-bottom: 1.5rem;">Abelian Science Academy is a premier coaching institute located in the heart of H-13, Islamabad. We specialize in Mathematics and Physics education, helping students from Grade 6 through FSc build the confidence and understanding they need to excel in academic and competitive exams.</p>
+          <p style="color: var(--muted); line-height: 1.9; margin-bottom: 2rem;">Our name is inspired by the mathematical concept of an Abelian group — a structure where every element works in harmony. That's exactly how we operate: a supportive, structured environment where every student's success is a collective goal.</p>
+          <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
+            <div>
+              <div style="font-family:'Playfair Display',serif; font-size: 2rem; color: var(--navy); font-weight: 900;">H-13</div>
+              <div style="color: var(--muted); font-size: 13px;">Islamabad Location</div>
+            </div>
+            <div>
+              <div style="font-family:'Playfair Display',serif; font-size: 2rem; color: var(--navy); font-weight: 900;">4 PM</div>
+              <div style="color: var(--muted); font-size: 13px;">Afternoon & Evening Batches</div>
+            </div>
+            <div>
+              <div style="font-family:'Playfair Display',serif; font-size: 2rem; color: var(--navy); font-weight: 900;">100%</div>
+              <div style="color: var(--muted); font-size: 13px;">Dedicated Faculty</div>
+            </div>
+          </div>
+        </div>
+        <div class="about-visual">
+          <div class="math-formula">∫₀^∞ f(x) dx = knowledge</div>
+          <div class="math-formula" style="opacity:0.6;">F = ma → Excellence</div>
+          <div class="math-formula" style="opacity:0.45;">E = mc² → Possibility</div>
+          <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; margin-top: 0.5rem;">
+            <div style="color: rgba(255,255,255,0.5); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.5rem;">Location</div>
+            <div style="color: #fff; font-size: 14px; line-height: 1.7;">Street 7, Shamas Colony<br>H-13, Islamabad, Pakistan</div>
+          </div>
+          <a href="tel:+923440243882" style="color: var(--teal); font-size: 14px; text-decoration: none;">📞 +92 344 0243882</a>
+        </div>
+      </div>
+
+      <div class="section-tag">Why Choose Us</div>
+      <h2 class="section-title" style="margin-bottom: 0.5rem;">What Makes Us Different</h2>
+      <p class="section-sub">Six pillars that define the Abelian learning experience.</p>
+      <div class="why-cards">
+        <div class="why-card">
+          <div class="why-icon">🎓</div>
+          <h3>Expert Faculty</h3>
+          <p>Highly qualified and experienced teachers in Mathematics and Physics with proven track records.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">👥</div>
+          <h3>Small Batches</h3>
+          <p>Limited students per batch ensures every student receives personal attention and guidance.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">📊</div>
+          <h3>Proven Results</h3>
+          <p>Our students consistently achieve top grades in board exams and clear university entry tests.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">💡</div>
+          <h3>Concept-Based Learning</h3>
+          <p>We focus on understanding, not just rote memorization — concepts made crystal clear.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">💰</div>
+          <h3>Affordable Fees</h3>
+          <p>Quality education at reasonable rates, making academic excellence accessible to all.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">🤝</div>
+          <h3>Supportive Environment</h3>
+          <p>A safe, encouraging space where students feel comfortable asking questions and making mistakes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ======================== COURSES PAGE ======================== -->
+<div class="page" id="page-courses">
+  <section style="padding-top: 4rem;">
+    <div class="section-inner">
+      <div class="section-tag">Our Programs</div>
+      <h2 class="section-title">Courses & Programs</h2>
+      <p class="section-sub">Comprehensive programs designed for every level — from school to pre-medical and engineering admission preparation.</p>
+      <div class="courses-grid">
+
+        <div class="course-card">
+          <div class="course-header">
+            <div class="course-icon-wrap">📐</div>
+            <h3>Mathematics</h3>
+            <p class="tagline">From basic algebra to advanced calculus — our Math program builds strong foundations and problem-solving skills.</p>
+            <div class="level-tags">
+              <span class="level-tag">Grade 6–8</span>
+              <span class="level-tag">Matric (9th–10th)</span>
+              <span class="level-tag">FSc (11th–12th)</span>
+              <span class="level-tag">O / A Level</span>
+            </div>
+          </div>
+          <div class="course-details">
+            <div class="course-detail-row"><span class="label">Schedule</span><span class="value">Mon – Sat, 4 PM+</span></div>
+            <div class="course-detail-row"><span class="label">Batch Size</span><span class="value">8–12 Students</span></div>
+            <div class="course-detail-row"><span class="label">Duration</span><span class="value">Ongoing / Session-based</span></div>
+          </div>
+          <a href="#" class="course-enroll" onclick="showPage('contact'); return false;">Enroll in Math →</a>
+        </div>
+
+        <div class="course-card">
+          <div class="course-header">
+            <div class="course-icon-wrap">⚛️</div>
+            <h3>Physics</h3>
+            <p class="tagline">Mechanics, waves, electromagnetism and modern physics — we make every concept approachable and exam-ready.</p>
+            <div class="level-tags">
+              <span class="level-tag">Grade 6–8</span>
+              <span class="level-tag">Matric (9th–10th)</span>
+              <span class="level-tag">FSc (11th–12th)</span>
+              <span class="level-tag">O / A Level</span>
+            </div>
+          </div>
+          <div class="course-details">
+            <div class="course-detail-row"><span class="label">Schedule</span><span class="value">Mon – Sat, 4 PM+</span></div>
+            <div class="course-detail-row"><span class="label">Batch Size</span><span class="value">8–12 Students</span></div>
+            <div class="course-detail-row"><span class="label">Duration</span><span class="value">Ongoing / Session-based</span></div>
+          </div>
+          <a href="#" class="course-enroll" onclick="showPage('contact'); return false;">Enroll in Physics →</a>
+        </div>
+
+        <div class="course-card">
+          <div class="course-header">
+            <div class="course-icon-wrap">🎯</div>
+            <h3>Entry Test Preparation</h3>
+            <p class="tagline">Comprehensive and targeted preparation for ECAT, MDCAT, and NET with mock tests and past paper practice.</p>
+            <div class="level-tags">
+              <span class="level-tag">MDCAT</span>
+              <span class="level-tag">ECAT</span>
+              <span class="level-tag">NET / NTS</span>
+            </div>
+          </div>
+          <div class="course-details">
+            <div class="course-detail-row"><span class="label">Schedule</span><span class="value">Weekend Intensive + Daily</span></div>
+            <div class="course-detail-row"><span class="label">Batch Size</span><span class="value">Max 10 Students</span></div>
+            <div class="course-detail-row"><span class="label">Duration</span><span class="value">3–6 Month Program</span></div>
+          </div>
+          <a href="#" class="course-enroll" onclick="showPage('contact'); return false;">Enroll in Test Prep →</a>
+        </div>
+
+      </div>
+
+      <!-- ADMISSION INFO -->
+      <div style="background: var(--section-alt); border-radius: 16px; padding: 2.5rem; margin-top: 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center;">
+        <div>
+          <div class="section-tag">Admissions</div>
+          <h3 style="font-family:'Playfair Display',serif; font-size: 1.5rem; color: var(--navy); margin-bottom: 0.75rem;">How to Enroll</h3>
+          <p style="color: var(--muted); font-size: 14px; line-height: 1.8;">Admissions are open year-round. Simply contact us via phone or WhatsApp, mention the course and your grade level, and we'll guide you through the batch timing and fee structure.</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          <a href="tel:+923440243882" class="btn-primary" style="text-align: center;">📞 Call +92 344 0243882</a>
+          <a href="https://wa.me/923440243882" target="_blank" class="whatsapp-btn" style="margin: 0;">💬 WhatsApp Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ======================== FACULTY PAGE ======================== -->
+<div class="page" id="page-faculty">
+  <section style="padding-top: 4rem;">
+    <div class="section-inner">
+      <div class="section-tag">Our Team</div>
+      <h2 class="section-title">Meet the Faculty</h2>
+      <p class="section-sub">Dedicated, qualified, and passionate educators who go the extra mile for every student's success.</p>
+      <div class="faculty-grid">
+        <div class="faculty-card">
+          <div class="faculty-avatar">A</div>
+          <h3>Academy Director</h3>
+          <div class="faculty-subject">Mathematics & Physics</div>
+          <p class="faculty-qual">M.Sc. Mathematics | 10+ Years Teaching Experience | Expert in FSc & Entry Test Prep</p>
+        </div>
+        <div class="faculty-card">
+          <div class="faculty-avatar">M</div>
+          <h3>Senior Math Teacher</h3>
+          <div class="faculty-subject">Mathematics</div>
+          <p class="faculty-qual">B.Sc. (Hons) Mathematics | Specialist in Calculus, Algebra & Trigonometry | 7+ Years Experience</p>
+        </div>
+        <div class="faculty-card">
+          <div class="faculty-avatar">P</div>
+          <h3>Senior Physics Teacher</h3>
+          <div class="faculty-subject">Physics</div>
+          <p class="faculty-qual">M.Sc. Physics | Specialist in Mechanics, Optics & Modern Physics | MDCAT / ECAT Expert</p>
+        </div>
+        <div class="faculty-card">
+          <div class="faculty-avatar">S</div>
+          <h3>Entry Test Coordinator</h3>
+          <div class="faculty-subject">ECAT / MDCAT / NET</div>
+          <p class="faculty-qual">B.Sc. Engineering | Past Paper Specialist | Adaptive teaching for entry test success</p>
+        </div>
+      </div>
+
+      <!-- TESTIMONIALS -->
+      <div class="testimonial-section">
+        <div class="testimonial-title">⭐ What Our Students Say</div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <p class="testimonial-text">"All the teachers are supportive and dedicated, and the teaching quality is excellent. The Math and Physics teachers are truly outclass, making even difficult concepts easy to understand. Highly recommended for students looking for strong academic guidance."</p>
+            <div class="testimonial-author">
+              <div class="t-avatar">FK</div>
+              <div>
+                <div class="t-name">Fouzia Khan</div>
+                <div class="t-role">Alumni — Abelian Science Academy</div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <p class="testimonial-text">"The best academy in H-13 for Math and Physics. I struggled with Calculus before joining — after just two months here, I topped my class. The teacher's explanation style is unlike anything I'd experienced before."</p>
+            <div class="testimonial-author">
+              <div class="t-avatar">AS</div>
+              <div>
+                <div class="t-name">Ahmed S.</div>
+                <div class="t-role">FSc Student</div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <p class="testimonial-text">"I cleared my ECAT after joining the entry test batch here. The mock tests and past paper sessions were incredibly useful. The teachers care genuinely about each student's outcome."</p>
+            <div class="testimonial-author">
+              <div class="t-avatar">SR</div>
+              <div>
+                <div class="t-name">Sara R.</div>
+                <div class="t-role">Engineering Student — UET</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ======================== CONTACT PAGE ======================== -->
+<div class="page" id="page-contact">
+  <section style="padding-top: 4rem;">
+    <div class="section-inner">
+      <div class="section-tag">Get In Touch</div>
+      <h2 class="section-title">Contact & Enrollment</h2>
+      <p class="section-sub">Ready to begin? Reach out and we'll help you choose the right batch and program.</p>
+      <div class="contact-grid">
+        <div>
+          <div class="contact-info-card">
+            <h2>Find Us</h2>
+            <p>We're open from 4 PM, Monday through Saturday. Walk in or call ahead to schedule a visit.</p>
+            <div class="contact-item">
+              <div class="contact-icon">📍</div>
+              <div>
+                <div class="contact-item-label">Address</div>
+                <div class="contact-item-value">Street 7, Shamas Colony<br>H-13, Islamabad, Pakistan</div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">📞</div>
+              <div>
+                <div class="contact-item-label">Phone</div>
+                <div class="contact-item-value">+92 344 0243882</div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">🕐</div>
+              <div>
+                <div class="contact-item-label">Hours</div>
+                <div class="contact-item-value">Mon – Sat: 4:00 PM – 9:00 PM<br>Sunday: Closed</div>
+              </div>
+            </div>
+            <a href="https://wa.me/923440243882" target="_blank" class="whatsapp-btn">💬 Chat on WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <h2>Enrollment Inquiry</h2>
+          <p>Fill in your details and we'll get back to you within 24 hours with batch timing and fee information.</p>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Full Name *</label>
+              <input type="text" placeholder="Your full name" id="f-name">
+            </div>
+            <div class="form-group">
+              <label>Phone Number *</label>
+              <input type="tel" placeholder="+92 3XX XXXXXXX" id="f-phone">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Current Class / Level *</label>
+              <select id="f-class">
+                <option value="">Select level...</option>
+                <option>Grade 6–8</option>
+                <option>Matric – 9th Grade</option>
+                <option>Matric – 10th Grade</option>
+                <option>FSc – 11th (Part I)</option>
+                <option>FSc – 12th (Part II)</option>
+                <option>O Level</option>
+                <option>A Level</option>
+                <option>Entry Test (ECAT/MDCAT)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Subject Interest *</label>
+              <select id="f-subject">
+                <option value="">Select subject...</option>
+                <option>Mathematics</option>
+                <option>Physics</option>
+                <option>Both Math & Physics</option>
+                <option>Entry Test Preparation</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Message (Optional)</label>
+            <textarea placeholder="Any specific questions, preferred timings, or additional information..."></textarea>
+          </div>
+          <button class="form-submit" onclick="submitForm()">Send Enrollment Inquiry →</button>
+          <div class="form-success" id="formSuccess">
+            ✅ Your inquiry has been sent! We'll contact you within 24 hours. You can also reach us directly at +92 344 0243882.
+          </div>
+        </div>
+      </div>
+
+      <div class="map-embed" style="margin-top: 3rem;">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3318.5!2d73.0!3d33.67!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sH-13%2C+Islamabad!5e0!3m2!1sen!2spk!4v1"
+          allowfullscreen="" loading="lazy"></iframe>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <h3>Abelian Science Academy</h3>
+        <p>Premier coaching institute for Mathematics and Physics in H-13, Islamabad. Building the next generation of scientists and engineers.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="#" onclick="showPage('home'); return false;">Home</a>
+        <a href="#" onclick="showPage('about'); return false;">About Us</a>
+        <a href="#" onclick="showPage('courses'); return false;">Courses</a>
+        <a href="#" onclick="showPage('faculty'); return false;">Faculty & Results</a>
+        <a href="#" onclick="showPage('contact'); return false;">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="tel:+923440243882">📞 +92 344 0243882</a>
+        <a href="#">📍 Street 7, Shamas Colony, H-13, Islamabad</a>
+        <a href="#">🕐 Mon–Sat: 4 PM – 9 PM</a>
+        <a href="https://wa.me/923440243882" target="_blank">💬 WhatsApp Us</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Abelian Science Academy. All rights reserved.</span>
+      <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color: var(--teal);">∑ Knowledge = Power</span>
+    </div>
+  </div>
+</footer>
+
+<!-- FLOATING BUTTONS -->
+<a href="https://wa.me/923440243882" target="_blank" class="wa-float" title="WhatsApp">💬</a>
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">↑</button>
+
+<script>
+// PAGE NAVIGATION
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.querySelectorAll('.nav-links a[id^="nav-"]').forEach(a => a.classList.remove('active'));
+  const navEl = document.getElementById('nav-' + id);
+  if (navEl) navEl.classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// MOBILE MENU
+function toggleMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMobileMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+
+// BACK TO TOP
+window.addEventListener('scroll', () => {
+  const bt = document.getElementById('backTop');
+  if (window.scrollY > 400) bt.classList.add('show'); else bt.classList.remove('show');
+});
+
+// FORM
+function submitForm() {
+  const name = document.getElementById('f-name').value.trim();
+  const phone = document.getElementById('f-phone').value.trim();
+  const cls = document.getElementById('f-class').value;
+  const subj = document.getElementById('f-subject').value;
+  if (!name || !phone || !cls || !subj) { alert('Please fill in all required fields.'); return; }
+  document.getElementById('formSuccess').style.display = 'block';
+}
+
+// HERO CANVAS — animated math particles
+const canvas = document.getElementById('heroCanvas');
+const ctx = canvas.getContext('2d');
+const symbols = ['∑', '∫', '∂', '√', 'π', '∞', 'α', 'β', 'λ', 'Δ', '∇', '∈', '⊕', 'θ', 'φ'];
+let particles = [];
+
+function resizeCanvas() {
+  canvas.width = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+}
+
+function initParticles() {
+  particles = Array.from({length: 35}, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    sym: symbols[Math.floor(Math.random() * symbols.length)],
+    size: Math.random() * 16 + 10,
+    speed: Math.random() * 0.4 + 0.1,
+    opacity: Math.random() * 0.5 + 0.2,
+    drift: (Math.random() - 0.5) * 0.3,
+  }));
+}
+
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => {
+    ctx.font = `${p.size}px 'JetBrains Mono', monospace`;
+    ctx.fillStyle = `rgba(0, 201, 177, ${p.opacity})`;
+    ctx.fillText(p.sym, p.x, p.y);
+    p.y -= p.speed;
+    p.x += p.drift;
+    if (p.y < -30) { p.y = canvas.height + 30; p.x = Math.random() * canvas.width; }
+    if (p.x < -30 || p.x > canvas.width + 30) p.x = Math.random() * canvas.width;
+  });
+  requestAnimationFrame(animateParticles);
+}
+
+resizeCanvas();
+initParticles();
+animateParticles();
+window.addEventListener('resize', () => { resizeCanvas(); initParticles(); });
+</script>
+</body>
+</html>
