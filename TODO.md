@@ -1,6 +1,0 @@
-- [x] Add geocoding function to get lat/lng/country for any city using Nominatim API
-- [x] Modify get_aqi function to geocode cities not in CITIES dictionary
-- [x] Remove dummy data fallback and get_dummy_aqi function
-- [x] Update caching to use actual city names from geocoding
-- [x] Make trend data consistent for same city using seeded random generation
-- [ ] Test the changes by running the backend and searching for a new city
